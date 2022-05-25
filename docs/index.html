@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<p id="currentDayNumber"></p>
+<p id="weekNumber"></p>
+
+<script type="text/javascript">
+  var today = new Date();
+  var currentDayNumber = Math.ceil((today - new Date(today.getFullYear(),0,1)) / 86400000);
+	
+  document.getElementById('currentDayNumber').innerHTML = "<h2>Day number: "+currentDayNumber+"</h3>";
+
+  
+  Date.prototype.getWeek = function () {
+    var target  = new Date(this.valueOf());
+    var dayNr   = (this.getDay() + 6) % 7;
+    target.setDate(target.getDate() - dayNr + 3);
+    var firstThursday = target.valueOf();
+    target.setMonth(0, 1);
+    if (target.getDay() != 4) {
+        target.setMonth(0, 1 + ((4 - target.getDay()) + 7) % 7);
+    }
+    return 1 + Math.ceil((firstThursday - target) / 604800000);
+  }
+
+   document.getElementById('weekNumber').innerHTML = "<h2>Week number: "+new Date().getWeek()+"</h3>";
+
+  
+ </script>
+ 
+ 
+ 
+ </body>
+ </html>
+ 
